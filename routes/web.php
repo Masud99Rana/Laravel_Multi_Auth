@@ -20,13 +20,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-
-Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-
-
-
+Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::prefix('admin')->group(function() {
+
+  // ->> Multi Auth Start
   Route::get('/', 'AdminController@index')->name('admin.dashboard');
   Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
   Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
@@ -38,4 +36,6 @@ Route::prefix('admin')->group(function() {
   Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
   Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset')->name('admin.password.update');
   Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
+
+  // <<- Multi Auth End
 });
